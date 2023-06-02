@@ -1,5 +1,5 @@
 """
-Добавить в бота реализацию работы с SQLite.
+Реализовать бота, выбора подписки на сервис (basic, premium, vip), c помощью меню, вызываемого с помощью команды/menu, и выводящего сообщение после выбора о успешной подписке.
 """
 from bot.bot_init import add_handlers, dispatcher, startup, shutdown
 from aiogram.utils import executor
