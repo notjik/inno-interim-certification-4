@@ -2,13 +2,6 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from bot.callbacks import cb_payload
 
 
-def get_goto_subscribe():
-    keyboard = InlineKeyboardMarkup()
-    btn_goto = InlineKeyboardButton('Subscribe', callback_data='subscribe')
-    keyboard.add(btn_goto)
-    return keyboard
-
-
 def get_pay():
     keyboard = InlineKeyboardMarkup()
     btn_basic = InlineKeyboardButton('Basic subscribe', callback_data=cb_payload.new('basic'))

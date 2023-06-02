@@ -5,10 +5,12 @@ async def set_starting_commands(bot: Bot, chat_id: int):
     commands = {
         'ru': [
             types.BotCommand('start', 'Начать диалог'),
+            types.BotCommand('menu', 'Выбрать подписку'),
             types.BotCommand('help', 'Помощь по боту'),
         ],
         'en': [
             types.BotCommand('start', 'Start a dialogue'),
+            types.BotCommand('menu', 'Choose a subscription'),
             types.BotCommand('help', 'Help on the bot'),
         ]
     }

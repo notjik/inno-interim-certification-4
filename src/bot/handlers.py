@@ -1,6 +1,6 @@
 from aiogram import types
 from database import db_session, users
-from bot.keyboards import get_goto_subscribe, get_pay, get_check_subscribe
+from bot.keyboards import get_pay, get_check_subscribe
 from bot.menu import set_starting_commands
 from bot.bot_init import bot
 from utils.load_local_variables import YOOMONEY_TOKEN
@@ -25,7 +25,7 @@ async def start_message(message: types.Message):
         username = message.from_user.username
         await message.answer(f'Welcome, {username}!')
     else:
-        await message.answer('To get started, you need to subscribe', reply_markup=get_goto_subscribe())
+        await message.answer('To get started, you need to subscribe in /menu')
     extra = {
         'user': message.from_user.username,
         'user_id': message.from_user.id,
@@ -47,17 +47,20 @@ async def help_message(message: types.Message):
     logger_message.info(message, extra=extra)
 
 
-async def goto_subscribe(callback: types.CallbackQuery):
-    await callback.answer()
-    await bot.send_message(chat_id=callback.from_user.id,
-                           text='Select a subscription category',
-                           reply_markup=get_pay())
+async def goto_subscribe(message: types.Message):
+    db_sess = db_session.create_session()
+    q = db_sess.query(users.Users).filter_by(user_id=message.from_user.id).first()
+    if q.subscribe_type is None:
+        await message.answer('Select a subscription category',
+                             reply_markup=get_pay())
+    else:
+        await start_message(message)
     extra = {
-        'user': callback.from_user.username,
-        'user_id': callback.from_user.id,
+        'user': message.from_user.username,
+        'user_id': message.from_user.id,
         'content_type': 'goto subscribe'
     }
-    logger_message.info(callback.message, extra=extra)
+    logger_message.info(message, extra=extra)
 
 
 async def payment(callback: types.CallbackQuery, callback_data: dict):
@@ -102,7 +105,7 @@ async def check_sub(callback: types.CallbackQuery):
     db_sess = db_session.create_session()
     q = db_sess.query(users.Users).filter_by(user_id=callback.from_user.id).first()
     if q.subscribe_type is None:
-        await callback.message.answer('Subscription is not active', reply_markup=get_goto_subscribe())
+        await callback.message.answer('Subscription is not active\nYou can arrange it using the /menu')
     else:
         await callback.message.answer('Your subscription level: {}'.format(q.subscribe_type))
     extra = {

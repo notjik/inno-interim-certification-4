@@ -1,6 +1,6 @@
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
-from aiogram.dispatcher.filters import CommandStart, CommandHelp
+from aiogram.dispatcher.filters import Command, CommandStart, CommandHelp
 from database import db_session
 from utils.load_local_variables import BOT_TOKEN, WEBHOOK_HOST, WEBHOOK_PATH, DB_PATH
 from utils.loggers import logger_status, logger_database_engine
@@ -51,7 +51,7 @@ def add_handlers():
         process_pay, check_sub, push_cancel
     dispatcher.register_message_handler(start_message, CommandStart())
     dispatcher.register_message_handler(help_message, CommandHelp())
-    dispatcher.register_callback_query_handler(goto_subscribe, text='subscribe')
+    dispatcher.register_message_handler(goto_subscribe, Command('menu'))
     dispatcher.register_callback_query_handler(payment, cb_payload.filter())
     dispatcher.register_pre_checkout_query_handler(process_pre_checkout_query)
     dispatcher.register_message_handler(process_pay, content_types=types.ContentType.SUCCESSFUL_PAYMENT)
