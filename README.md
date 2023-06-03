@@ -6,6 +6,8 @@
 
 # Bot from the intermediate certification of the course "Code Future" of Innopolis University
 
+> Implement a bot, selecting a subscription to the service (basic, premium, vip), using a menu called using the /menu command, and displaying a message after selecting a successful subscription.
+
 ### Stack:
 * ##### aiogram
 * ##### dotenv
@@ -28,6 +30,8 @@ pip install -r requirements.txt
 </summary>
 
 # Бот с промежуточной аттестации по курсу "Код будущего" Университета Иннополис
+
+> Реализовать бота, выбора подписки на сервис (basic, premium, vip), c помощью меню, вызываемого с помощью команды /menu, и выводящего сообщение после выбора о успешной подписке.
 
 ### Стек:
 * ##### aiogram

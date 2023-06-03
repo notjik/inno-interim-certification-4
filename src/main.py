@@ -1,8 +1,5 @@
-"""
-Реализовать бота, выбора подписки на сервис (basic, premium, vip), c помощью меню, вызываемого с помощью команды /menu, и выводящего сообщение после выбора о успешной подписке.
-"""
-from bot.bot_init import add_handlers, dispatcher, startup, shutdown
 from aiogram.utils import executor
+from bot.bot_init import add_handlers, dispatcher, startup, shutdown
 from utils.load_local_variables import WEBHOOK_PATH, WEBAPP_HOST, WEBAPP_PORT
 
 # Entry point
